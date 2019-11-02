@@ -1,8 +1,6 @@
 ﻿using K4AdotNet.Sensor;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -11,6 +9,9 @@ using System.Windows.Threading;
 
 namespace K4aColorCameraDemo
 {
+    /*
+     * modified from https://github.com/bibigone/k4a.net/blob/master/K4AdotNet.Samples.Wpf.Viewer/ImageVisualizer.cs
+     */
     internal abstract class ImageVisualizer
     {
         public const int DefaultDpi = 96;
@@ -45,13 +46,6 @@ namespace K4aColorCameraDemo
         public int WidthPixels { get; }
         public int HeightPixels { get; }
         public int StrideBytes { get; }
-
-        //public int VisualizationParameter
-        //{
-        //    get => visualizationParameter;
-        //    set => visualizationParameter = value;
-        //}
-        //private volatile int visualizationParameter;
 
         /// <summary>
         /// Image with visualized frame. You can use this property in WPF controls/windows.
@@ -114,10 +108,6 @@ namespace K4aColorCameraDemo
             {
                 var backBuffer = writeableBitmap.BackBuffer;
                 var backBufferStride = writeableBitmap.BackBufferStride;
-                //var visParameter = visualizationParameter;
-
-                // This method works in UI thread, and uses innerBuffer
-                // that is filled in Update() method from some background thread
                 lock (innerBuffer)
                 {
                     // We use parallelism here to speed up
